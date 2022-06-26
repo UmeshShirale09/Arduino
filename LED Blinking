@@ -1,3 +1,7 @@
+// NodeMCU 1.0 
+// LED Blinking Example 
+// Written by Umesh Shirale
+
 void setup() 
 {
   // LED is connected to D0
