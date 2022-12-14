@@ -1,0 +1,206 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27,20,4);
+
+int vote1 = 0;
+int vote2 = 0;
+int vote3 = 0;
+int vote4 = 0;
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(2, INPUT_PULLUP);
+  
+  pinMode(3, INPUT_PULLUP);
+  pinMode(4, INPUT_PULLUP);
+  pinMode(5, INPUT_PULLUP);
+  pinMode(6, INPUT_PULLUP);
+  pinMode(7, OUTPUT);
+  digitalWrite(7, LOW);
+  Serial.begin(9600);
+ 
+lcd.init();
+
+lcd.backlight();
+
+lcd.print(" Electronic ");
+
+lcd.setCursor(0,1);
+lcd.print(" Voting Machine ");
+
+delay(4000);
+lcd.clear();
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+ int a = digitalRead(2);
+ int b = digitalRead(3);
+ int c = digitalRead(4);
+ int d = digitalRead(5);
+ int e = digitalRead(6);
+
+ if( a==0 && b==1 && c==1 && d==1)
+ {
+  vote1++; 
+  Serial.print("vote1 =");
+  Serial.print(vote1);
+  Serial.println();
+  digitalWrite(7,HIGH);
+  delay(1000);
+  digitalWrite(7,LOW);
+  
+  lcd.setCursor(1,0);
+  lcd.print("BJP");
+  lcd.setCursor(1,1);
+  lcd.print(vote1);
+  
+  lcd.setCursor(5,0);
+  lcd.print("NCP");
+  lcd.setCursor(5,1);
+  lcd.print(vote2);
+ 
+  lcd.setCursor(9,0);
+  lcd.print("MNS");
+  lcd.setCursor(9,1);
+  lcd.print(vote3);
+ 
+  lcd.setCursor(13,0);
+  lcd.print("MRC");
+  lcd.setCursor(13,1);
+  lcd.print(vote4);
+}
+ else if( a==1 && b==0 && c==1 && d==1)
+ {
+  vote2++; 
+  Serial.print("vote2 =");
+  Serial.print(vote2);
+  Serial.println();
+  digitalWrite(7,HIGH);
+  delay(1000);
+  digitalWrite(7,LOW);
+
+  lcd.setCursor(1,0);
+  lcd.print("BJP");
+  lcd.setCursor(1,1);
+  lcd.print(vote1);
+  
+  lcd.setCursor(5,0);
+  lcd.print("NCP");
+  lcd.setCursor(5,1);
+  lcd.print(vote2);
+ 
+  lcd.setCursor(9,0);
+  lcd.print("MNS");
+  lcd.setCursor(9,1);
+  lcd.print(vote3);
+ 
+  lcd.setCursor(13,0);
+  lcd.print("MRC");
+  lcd.setCursor(13,1);
+  lcd.print(vote4);
+}
+ else if( a==1 && b==1 && c==0 && d==1)
+ {
+  vote3++; 
+  Serial.print("vote3 =");
+  Serial.print(vote3);
+  Serial.println();
+  delay(1000);
+  digitalWrite(7,HIGH);
+  delay(1000);
+  digitalWrite(7,LOW);
+
+  lcd.setCursor(1,0);
+  lcd.print("BJP");
+  lcd.setCursor(1,1);
+  lcd.print(vote1);
+  
+  lcd.setCursor(5,0);
+  lcd.print("NCP");
+  lcd.setCursor(5,1);
+  lcd.print(vote2);
+ 
+  lcd.setCursor(9,0);
+  lcd.print("MNS");
+  lcd.setCursor(9,1);
+  lcd.print(vote3);
+ 
+  lcd.setCursor(13,0);
+  lcd.print("MRC");
+  lcd.setCursor(13,1);
+  lcd.print(vote4);
+}
+ else if( a==1 && b==1 && c==1 && d==0)
+ {
+  vote4++; 
+  Serial.print("vote4 =");
+  Serial.print(vote4);
+  Serial.println();
+  delay(1000);
+  digitalWrite(7,HIGH);
+  delay(1000);
+  digitalWrite(7,LOW);
+
+  lcd.setCursor(1,0);
+  lcd.print("BJP");
+  lcd.setCursor(1,1);
+  lcd.print(vote1);
+  
+  lcd.setCursor(5,0);
+  lcd.print("NCP");
+  lcd.setCursor(5,1);
+  lcd.print(vote2);
+ 
+  lcd.setCursor(9,0);
+  lcd.print("MNS");
+  lcd.setCursor(9,1);
+  lcd.print(vote3);
+ 
+  lcd.setCursor(13,0);
+  lcd.print("MRC");
+  lcd.setCursor(13,1);
+  lcd.print(vote4);
+}
+else if(e==0 && a>b && a>c && a>d )
+{
+lcd.clear();
+lcd.setCursor(1,0);
+lcd.print("BJP is winner");
+delay(1000); 
+digitalWrite(7,HIGH);
+delay(2000);
+digitalWrite(7,LOW);
+}
+else if(e==0 && b>a && b>c && b>d )
+{
+lcd.clear();
+lcd.setCursor(2,0);
+lcd.print("NCP  is winner");
+delay(1000); 
+digitalWrite(7,HIGH);
+delay(2000);
+digitalWrite(7,LOW);
+}
+else if(e==0 && c>a && c>b  && c>d )
+{
+  lcd.clear();
+lcd.setCursor(3,0);
+lcd.print("MNS is winner");
+delay(1000);
+digitalWrite(7,HIGH);
+delay(2000);
+digitalWrite(7,LOW);
+}
+else if (e==0 && d>a && d>b && d>c )
+{
+lcd.clear();
+lcd.setCursor(2,0);
+lcd.print("RCP is winner");
+delay(1000); 
+digitalWrite(7,HIGH);
+delay(2000);
+digitalWrite(7,LOW);
+}
+}
